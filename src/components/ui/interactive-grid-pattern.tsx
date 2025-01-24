@@ -60,7 +60,7 @@ export function InteractiveGridPattern({
             height={height} // Altura del cuadrado
             className={cn(
               "stroke-gray-400/30 transition-all duration-100 ease-in-out [&:not(:hover)]:duration-1000", // Clases CSS por defecto
-              hoveredSquare === index ? "fill-yellow-300/30" : "fill-transparent", // Cambia el color de relleno si el cuadrado está siendo sobrevolado
+              hoveredSquare === index ? "fill-orange-300/30" : "fill-transparent", // Cambia el color de relleno si el cuadrado está siendo sobrevolado
               squaresClassName, // Añade clases adicionales si se proporcionan
             )}
             onMouseEnter={() => setHoveredSquare(index)} // Establece el cuadrado sobre el que se pasa el ratón
