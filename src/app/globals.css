@@ -33,33 +33,61 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+
+    --color-50: #fffbea;
+    --color-100: #fff1c5;
+    --color-200: #ffe385;
+    --color-300: #ffcd46;
+    --color-400: #ffb71b;
+    --color-500: #ff9300;
+    --color-600: #e26c00;
+    --color-700: #bb4802;
+    --color-800: #983808;
+    --color-900: #7c2e0b;
+    --color-950: #481500;
   }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
+}
+
+/* Text Colors */
+.text-color-500 {
+  color: var(--color-500);
+}
+
+.text-color-600 {
+  color: var(--color-600);
+}
+
+.text-color-700 {
+  color: var(--color-700);
+}
+
+.text-color-800 {
+  color: var(--color-800);
+}
+
+.text-color-900 {
+  color: var(--color-900);
+}
+
+/* Background Colors */
+.bg-color-50 {
+  background-color: var(--color-50);
+}
+
+.bg-color-100 {
+  background-color: var(--color-100);
+}
+
+.bg-color-200 {
+  background-color: var(--color-200);
+}
+
+.bg-color-300 {
+  background-color: var(--color-300);
+}
+
+.bg-color-400 {
+  background-color: var(--color-400);
 }
 
 @layer base {
