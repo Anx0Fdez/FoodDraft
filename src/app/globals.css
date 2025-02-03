@@ -61,6 +61,14 @@ body {
 }
 
 /* Text Colors */
+.text-color-300 {
+  color: var(--color-300);
+}
+
+.text-color-400 {
+  color: var(--color-400);
+}
+
 .text-color-500 {
   color: var(--color-500);
 }

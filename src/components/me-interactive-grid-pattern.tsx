@@ -29,7 +29,19 @@ export function InteractiveGridPatternDemo() {
       >
         En FoodDraft, descubre, crea y comparte recetas con una comunidad apasionada por la cocina. ¡Inspírate y cocina sin límites! 🍲🔥      </p>
       */}
-      <div>
+      <div className="
+          absolute // Posiciona el elemento de forma absoluta dentro de su contenedor
+          top-0 // Coloca el elemento en la parte superior del contenedor
+          left-0 // Coloca el elemento en la parte izquierda del contenedor
+          ml-10 // Aplica un margen de 1rem (16px) en el lado izquierdo del elemento
+          mt-10 // Aplica un margen de 1rem (16px) en la parte superior del elemento
+          mr-20 // Aplica un margen de 1rem (16px) en el lado derecho del elemento
+          lg:mr-40 // Aplica un margen de 1.25rem (20px) en el lado derecho del elemento en pantallas grandes
+          xl:mr-80 // Aplica un margen de 2.5rem (40px) en el lado derecho del elemento en pantallas extra grandes
+          whitespace-pre-wrap // Mantiene los espacios en blanco y permite el ajuste de línea dentro del texto
+          text-left // Alinea el texto a la izquierda
+        "
+      >
         <AuroraTextDemo />
       </div>
 
