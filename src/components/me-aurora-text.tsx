@@ -14,6 +14,7 @@ export function AuroraTextDemo() {
     mr-10 // Aplica un margen de 1rem (16px) en el lado derecho del elemento
     lg:mr-20 // Aplica un margen de 1.25rem (20px) en el lado derecho del elemento en pantallas grandes
     xl:mr-40 // Aplica un margen de 2.5rem (40px) en el lado derecho del elemento en pantallas extra grandes
+
     ">
       En <AuroraText className="lg:text-7xl md:text-5xl text-4xl">FoodDraft</AuroraText>, descubre, crea y comparte recetas con una comunidad apasionada por la cocina. ¡Inspírate y cocina sin límites! 🍲🔥
     </h1>

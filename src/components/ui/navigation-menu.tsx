@@ -41,7 +41,30 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName
 const NavigationMenuItem = NavigationMenuPrimitive.Item
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-bold transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+  [
+    "group", // Aplica estilos de grupo
+    "inline-flex", // Usa flexbox en línea
+    "h-10", // Altura de 10 unidades
+    "w-max", // Ancho máximo
+    "items-center", // Alinea los elementos al centro verticalmente
+    "justify-center", // Justifica los elementos al centro horizontalmente
+    "rounded-md", // Bordes redondeados medianos
+    "bg-background", // Fondo con la clase 'background'
+    "px-4", // Padding horizontal de 4 unidades
+    "py-2", // Padding vertical de 2 unidades
+    "text-sm", // Texto pequeño
+    "font-bold", // Texto en negrita
+    "transition-colors", // Transición de colores
+    "hover:bg-accent", // Fondo de acento al pasar el ratón
+    "hover:text-accent-foreground", // Texto de acento en primer plano al pasar el ratón
+    "focus:bg-accent", // Fondo de acento al enfocar
+    "focus:text-accent-foreground", // Texto de acento en primer plano al enfocar
+    "focus:outline-none", // Sin contorno al enfocar
+    "disabled:pointer-events-none", // Sin eventos de puntero cuando está deshabilitado
+    "disabled:opacity-50", // Opacidad del 50% cuando está deshabilitado
+    "data-[active]:bg-accent/50", // Fondo de acento al 50% cuando está activo
+    "data-[state=open]:bg-accent/50" // Fondo de acento al 50% cuando está abierto
+  ]
 )
 
 const NavigationMenuTrigger = React.forwardRef<
