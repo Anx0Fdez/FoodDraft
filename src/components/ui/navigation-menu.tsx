@@ -41,30 +41,7 @@ NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName
 const NavigationMenuItem = NavigationMenuPrimitive.Item
 
 const navigationMenuTriggerStyle = cva(
-  [
-    "group", // Aplica estilos de grupo
-    "inline-flex", // Usa flexbox en línea
-    "h-10", // Altura de 10 unidades
-    "w-max", // Ancho máximo
-    "items-center", // Alinea los elementos al centro verticalmente
-    "justify-center", // Justifica los elementos al centro horizontalmente
-    "rounded-md", // Bordes redondeados medianos
-    "bg-background", // Fondo con la clase 'background'
-    "px-4", // Padding horizontal de 4 unidades
-    "py-2", // Padding vertical de 2 unidades
-    "text-sm", // Texto pequeño
-    "font-bold", // Texto en negrita
-    "transition-colors", // Transición de colores
-    "hover:bg-accent", // Fondo de acento al pasar el ratón
-    "hover:text-accent-foreground", // Texto de acento en primer plano al pasar el ratón
-    "focus:bg-accent", // Fondo de acento al enfocar
-    "focus:text-accent-foreground", // Texto de acento en primer plano al enfocar
-    "focus:outline-none", // Sin contorno al enfocar
-    "disabled:pointer-events-none", // Sin eventos de puntero cuando está deshabilitado
-    "disabled:opacity-50", // Opacidad del 50% cuando está deshabilitado
-    "data-[active]:bg-accent/50", // Fondo de acento al 50% cuando está activo
-    "data-[state=open]:bg-accent/50" // Fondo de acento al 50% cuando está abierto
-  ]
+  "group inline-flex h-10 w-max items-center justify-center hover:bg-orange-200 hover:text-orange-600 hover:bg-opacity-30 hover:bg-orange-200/40 dark:hover:bg-orange-900 dark:hover:text-orange-500 dark:hover:bg-opacity-30 rounded-xl px-4 py-2 text-sm font-medium "
 )
 
 const NavigationMenuTrigger = React.forwardRef<
@@ -73,7 +50,7 @@ const NavigationMenuTrigger = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <NavigationMenuPrimitive.Trigger
     ref={ref}
-    className={cn(navigationMenuTriggerStyle(), "group", className)}
+    className={cn(navigationMenuTriggerStyle(), "group hover:bg-orange-200 hover:text-orange-600 hover:bg-opacity-30 hover:bg-orange-200/40 dark:hover:bg-orange-900 dark:hover:text-orange-500 dark:hover:bg-opacity-30", className)}
     {...props}
   >
     {children}{" "}
