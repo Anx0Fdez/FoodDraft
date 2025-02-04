@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <header>
-        <div className="flex items-center justify-between p-3 text-color-500">
+        <div>
           <NavigationMenuDemo />
         </div>
       </header>
@@ -15,11 +15,7 @@ export default function Home() {
         <div>
           <InteractiveGridPatternDemo />
         </div>
-        
-      
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-      </footer>
     </div>
   );
 } 

@@ -54,9 +54,8 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function NavigationMenuDemo() {
   return (
-    <NavigationMenu>
+    <NavigationMenu  className="flex items-center justify-between p-3 text-color-500">
       <NavigationMenuList>
-        
         <NavigationMenuItem>
           <NavigationMenuTrigger>Inicio</NavigationMenuTrigger>
           <NavigationMenuContent>
