@@ -110,6 +110,14 @@ body {
   background-color: var(--color-400);
 }
 
+.bg-color-500 {
+  background-color: var(--color-500);
+}
+
+.bg-color-600 {
+  background-color: var(--color-600);
+}
+
 @layer base {
   * {
     @apply border-border;

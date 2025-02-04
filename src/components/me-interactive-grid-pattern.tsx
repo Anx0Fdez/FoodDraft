@@ -5,6 +5,7 @@ import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern
 import NutriaPrime from "../images/NutriaPRIME.png";
 import { AuroraTextDemo } from "@/components/me-aurora-text";
 import Image from "next/image";
+import { InteractiveHoverButtonDemo } from "./me-interactive-hover-button";
 
 // Define el componente 'InteractiveGridPatternDemo'
 export function InteractiveGridPatternDemo() {
@@ -29,7 +30,7 @@ export function InteractiveGridPatternDemo() {
       </div>
 
       {/* Imagen portada */}
-      <div className="flex flex-col items-center justify-center z-10 w-60 h-60 sm:w-80 sm:h-80 md:w-100 md:h-100 lg:w-[40rem] lg:h-[40rem] pointer-events-none lg:ml-auto lg:mr-4 lg:mt-[-6rem] md:mt-[-4rem] sm:mt-[-2rem] mt-[-1rem]">
+      <div className="flex flex-col items-center justify-center z-10 w-60 h-60 sm:w-80 sm:h-80 md:w-100 md:h-100 lg:w-[40rem] lg:h-[40rem] pointer-events-none lg:ml-auto lg:mr-4 lg:mt-[-1rem] md:mt-[-1.5rem] sm:mt-[-2rem] mt-[-3rem]">
         <Image
           src={NutriaPrime.src}
           alt="NutriaPRIME"
@@ -37,6 +38,32 @@ export function InteractiveGridPatternDemo() {
           width={1024}
           height={1024}
           />
+      </div>
+
+      <div 
+        className="
+          flex // Establece el contenedor como un contenedor flexible
+          flex-col // Organiza los elementos en una columna vertical
+          items-start // Alinea los elementos al inicio horizontalmente en el contenedor
+          justify-start // Alinea los elementos al inicio verticalmente en el contenedor
+          z-10 // Establece el índice z para controlar la superposición de elementos
+          w-40 // Ancho base de 10rem (160px)
+          h-40 // Altura base de 10rem (160px)
+          sm:w-60 // Ancho de 15rem (240px) en pantallas pequeñas
+          sm:h-60 // Altura de 15rem (240px) en pantallas pequeñas
+          md:w-80 // Ancho de 20rem (320px) en pantallas medianas
+          md:h-80 // Altura de 20rem (320px) en pantallas medianas
+          lg:w-[30rem] // Ancho de 30rem (480px) en pantallas grandes
+          lg:h-[30rem] // Altura de 30rem (480px) en pantallas grandes
+          lg:ml-10 // Margen izquierdo de 2.5rem (40px) en pantallas grandes
+          lg:mr-auto // Margen derecho automático en pantallas grandes
+          lg:mt-[-8rem] // Margen superior negativo de 8rem (128px) en pantallas grandes
+          md:mt-[-6rem] // Margen superior negativo de 6rem (96px) en pantallas medianas
+          sm:mt-[-5rem] // Margen superior negativo de 5rem (80px) en pantallas pequeñas
+          mt-[-4rem] // Margen superior negativo base de 4rem (64px)
+        "
+      >
+        <InteractiveHoverButtonDemo />
       </div>
 
       {/* Componente de patrón de cuadrícula interactivo */}
