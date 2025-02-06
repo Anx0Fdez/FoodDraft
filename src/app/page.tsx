@@ -3,7 +3,6 @@ import HeroSection from "@/components/HeroSection";
 import NavegationBar from "@/components/NavegationBar";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 export default function Home() {
   return (

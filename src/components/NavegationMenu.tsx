@@ -2,6 +2,9 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Logo from "../images/Logo.png";
+import Image from 'next/image'
+
 
 import { cn } from "@/lib/utils"
 import {
@@ -56,6 +59,23 @@ export function NavigationMenuDemo() {
   return (
     <NavigationMenu className="flex items-center justify-between p-3 text-color-500">
       <NavigationMenuList>
+
+        
+        <NavigationMenuItem className="flex items-center justify-center ml-10 mr-5">
+          <Link href="http://localhost:3000" legacyBehavior passHref>
+              <Image
+                priority
+                src={Logo.src}
+                alt="Logotipo nutria representativa de FoodDraft"
+                width={40}
+                height={40}
+                className=""
+              />
+          </Link>
+        </NavigationMenuItem>
+
+
+
         <NavigationMenuItem>
           <NavigationMenuTrigger>Inicio</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -110,12 +130,22 @@ export function NavigationMenuDemo() {
         <NavigationMenuItem>
           <Link href="/docs" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Documentation
+              Pricing
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <Link href="/docs" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Iniciar Sesión
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
       </NavigationMenuList>
     </NavigationMenu>
+
   )
 }
 
