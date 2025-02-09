@@ -9,14 +9,14 @@ export default function Home() {
 
     <main>
       <div>
-        <NavegationBar />
+        <NavegationBar/>
       </div>
       <div className="container mx-auto mt-5 px-4">
         <section>
           <HeroSection />
         </section>
-
       </div>
+
       <AnimatedGridPattern
         numSquares={30}
         maxOpacity={0.1}

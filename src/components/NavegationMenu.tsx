@@ -2,8 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import Logo from "../images/Logo.png";
-import Image from 'next/image'
+
 
 
 import { cn } from "@/lib/utils"
@@ -60,22 +59,6 @@ export function NavigationMenuDemo() {
     <NavigationMenu className="flex items-center justify-between p-3 text-color-500">
       <NavigationMenuList>
 
-        
-        <NavigationMenuItem className="flex items-center justify-center ml-10 mr-5">
-          <Link href="http://localhost:3000" legacyBehavior passHref>
-              <Image
-                priority
-                src={Logo.src}
-                alt="Logotipo nutria representativa de FoodDraft"
-                width={40}
-                height={40}
-                className=""
-              />
-          </Link>
-        </NavigationMenuItem>
-
-
-
         <NavigationMenuItem>
           <NavigationMenuTrigger>Inicio</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -83,7 +66,7 @@ export function NavigationMenuDemo() {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-orange-100 to-orange-300 p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
                     <div className="mb-2 mt-4 text-lg font-medium">
@@ -135,14 +118,6 @@ export function NavigationMenuDemo() {
           </Link>
         </NavigationMenuItem>
 
-        <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Iniciar Sesión
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-
       </NavigationMenuList>
     </NavigationMenu>
 
@@ -159,7 +134,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-orange-200 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
           )}
           {...props}
