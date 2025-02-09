@@ -2,7 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
+import { SignUpButton } from "@clerk/nextjs";
 
 export function InteractiveHoverButtonDemo() {
-  return <InteractiveHoverButton>Empecemos</InteractiveHoverButton>;
+  return <SignUpButton><InteractiveHoverButton>Empecemos</InteractiveHoverButton></SignUpButton>;
 }
