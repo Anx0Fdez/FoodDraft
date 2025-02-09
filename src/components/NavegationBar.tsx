@@ -4,13 +4,14 @@ import Link from "next/link"
 import Logo from "../images/Logo.png";
 import Image from 'next/image'
 import { Button } from './ui/button';
+import { SignInButton, SignUpButton } from '@clerk/nextjs';
 
 function NavegationBar() {
     return (
         <header className='flex items-center justify-between p-2 '>
-            <nav className='flex items-center w-full'>
-                <div className='flex items-center justify-center ml-5'>
-                <Link href="/">
+            <nav className='flex items-center w-full mx-10'>
+                <div className='flex items-center justify-center'>
+                    <Link href="/">
                         <Image
                             priority
                             src={Logo.src}
@@ -24,8 +25,13 @@ function NavegationBar() {
                 <div className='flex items-center justify-center'>
                     <NavigationMenuDemo />
                 </div>
-                <div className='flex w-full justify-end'>
-                    <Button variant="default" size="sm" className="mx-5 bg-orange-500">Iniciar Sesión</Button>
+                <div className='flex w-full justify-end gap-5'>
+                    <SignInButton>
+                        <Button variant="default" className="bg-orange-500">Iniciar Sesión</Button>
+                    </SignInButton>
+                    <SignUpButton>
+                        <Button variant="default" className="bg-orange-500">Registrarse</Button>
+                    </SignUpButton>
                 </div>
             </nav>
         </header>

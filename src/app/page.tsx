@@ -9,7 +9,7 @@ export default function Home() {
 
     <main>
       <div>
-        <NavegationBar/>
+        <NavegationBar />
       </div>
       <div className="container mx-auto mt-5 px-4">
         <section>
