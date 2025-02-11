@@ -1,4 +1,3 @@
-
 import HeroSection from "@/components/HeroSection";
 import NavegationBar from "@/components/NavegationBar";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";

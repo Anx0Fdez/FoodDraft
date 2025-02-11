@@ -27,10 +27,10 @@ function NavegationBar() {
                 </div>
                 <div className='flex w-full justify-end gap-5'>
                     <SignInButton>
-                        <Button variant="default" className="bg-orange-500">Iniciar Sesión</Button>
+                        <Button variant="default" className="bg-orange-400">Iniciar Sesión</Button>
                     </SignInButton>
                     <SignUpButton>
-                        <Button variant="default" className="bg-orange-500">Registrarse</Button>
+                        <Button variant="default" className="bg-orange-600">Registrarse</Button>
                     </SignUpButton>
                 </div>
             </nav>
