@@ -1,9 +1,8 @@
 "use client";
 
-import { CalendarIcon, HomeIcon, MailIcon, PencilIcon } from "lucide-react";
+import { CalendarIcon, HomeIcon, MailIcon, PencilIcon, CookingPot } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-// import { UserIcon } from "lucide-react"; // Impotar Iconos
 
 
 import { buttonVariants } from "@/components/ui/button";
@@ -62,19 +61,20 @@ const Icons = {
       ></path>
     </svg>
   ),
+  recipes: (props: IconProps) => <CookingPot {...props} />,
 };
 
 const DATA = {
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "#", icon: PencilIcon, label: "Blog" },
+    { href: "#", icon: PencilIcon, label: "New" },
   ],
   contact: {
     social: {
-      GitHub: {
-        name: "GitHub",
+      Recetas: {
+        name: "Mis Recetas",
         url: "#",
-        icon: Icons.github,
+        icon: Icons.recipes,
       },
       LinkedIn: {
         name: "LinkedIn",
