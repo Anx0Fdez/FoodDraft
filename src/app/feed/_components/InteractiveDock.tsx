@@ -3,6 +3,8 @@
 import { CalendarIcon, HomeIcon, MailIcon, PencilIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+// import { UserIcon } from "lucide-react"; // Impotar Iconos
+
 
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -13,7 +15,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { Dock, DockIcon } from "@/components/magicui/dock";
+import { Dock, DockIcon } from "@/components/ui/dock";
+import { UserButton } from "@clerk/nextjs";
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -63,7 +66,7 @@ const Icons = {
 
 const DATA = {
   navbar: [
-    { href: "#", icon: HomeIcon, label: "Home" },
+    { href: "/", icon: HomeIcon, label: "Home" },
     { href: "#", icon: PencilIcon, label: "Blog" },
   ],
   contact: {
@@ -95,9 +98,6 @@ const DATA = {
 export function DockDemo() {
   return (
     <div className="flex flex-col items-center justify-center">
-      <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
-        Dock
-      </span>
       <TooltipProvider>
         <Dock direction="middle">
           {DATA.navbar.map((item) => (
@@ -144,6 +144,16 @@ export function DockDemo() {
             </DockIcon>
           ))}
           <Separator orientation="vertical" className="h-full py-2" />
+          <DockIcon>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <UserButton />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Profile</p>
+              </TooltipContent>
+            </Tooltip>
+          </DockIcon>
         </Dock>
       </TooltipProvider>
     </div>
