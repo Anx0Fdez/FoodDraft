@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/images/Logo.png" alt="Logo" width="45">
+  <img src="src/images/Logo.png" alt="Logo" width="80">
 </p>
 
 <div align="center">
@@ -25,7 +25,7 @@ Para configurar el proyecto, sigue estos pasos:
 
 2. Navega al directorio del proyecto:
     ```bash
-    cd eslintask
+    cd FoodDraft
     ```
 
 3. Instala las dependencias:
