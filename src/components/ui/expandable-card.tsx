@@ -72,7 +72,7 @@ export function ProjectStatusCard({
 
   return (
     <Card
-      className="w-full max-w-md cursor-pointer transition-all duration-300 hover:shadow-lg"
+      className="w-full max-w-xl cursor-pointer transition-all duration-300 hover:shadow-lg"
       onClick={toggleExpand}
     >
       <CardHeader className="space-y-1">
