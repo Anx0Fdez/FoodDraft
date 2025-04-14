@@ -111,9 +111,9 @@ export function NavigationMenuDemo() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
+          <Link href="/pricing" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Pricing
+              Precios
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
