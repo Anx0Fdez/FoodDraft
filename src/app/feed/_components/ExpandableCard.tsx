@@ -28,8 +28,7 @@ export default function ExpandableCardBasic() {
         { description: "Cuando hierva, añadir el arroz y cocinar a fuego medio", completed: false }
       ]}
       author="Chef Juan"
+      imageUrl="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=1000&auto=format&fit=crop"
     />
   )
 }
-
-export { RecipeCard }
