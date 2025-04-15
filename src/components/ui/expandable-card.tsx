@@ -4,24 +4,24 @@ import React, { useRef, useEffect,useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Clock,
+  GitBranch,
+  Github,
   MessageSquare,
+  StepForwardIcon as Progress,
+  Star,
   Users,
   CheckCircle2,
-  ChefHat,
-  Timer,
-  Utensils,
-  ChevronDown,
-  ChevronUp,
 } from "lucide-react";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Progress as ProgressBar } from "@/components/ui/progress";
 import {
   Tooltip,
   TooltipContent,
@@ -29,30 +29,26 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useExpandable } from "@/hooks/use-expandable";
-import { UserButton } from "@clerk/nextjs";
-import { Badge } from '@/components/ui/badge'
 
-interface RecipeCardProps {
+interface ProjectStatusCardProps {
   title: string;
-  description: string;
-  cookingTime: string;
-  difficulty: string;
-  ingredients: Array<{ name: string; amount: string }>;
-  steps: Array<{ description: string; completed: boolean }>;
-  author: string;
-  imageUrl: string;
+  progress: number;
+  dueDate: string;
+  contributors: Array<{ name: string; image?: string }>;
+  tasks: Array<{ title: string; completed: boolean }>;
+  githubStars: number;
+  openIssues: number;
 }
 
-export function RecipeCard({
+export function ProjectStatusCard({
   title,
-  description,
-  cookingTime,
-  difficulty,
-  ingredients,
-  steps,
-  author,
-  imageUrl,
-}: RecipeCardProps) {
+  progress,
+  dueDate,
+  contributors,
+  tasks,
+  githubStars,
+  openIssues,
+}: ProjectStatusCardProps) {
   const { isExpanded, toggleExpand, animatedHeight } = useExpandable();
   const contentRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
@@ -75,106 +71,150 @@ export function RecipeCard({
   }, [isExpanded, animatedHeight]);
 
   return (
-    <Card className="w-full max-w-4xl overflow-hidden">
-      <div className="flex">
-        <div className="w-1/2 flex justify-start items-start">
-          <div className="w-[28rem] h-[28rem] overflow-hidden rounded-lg">
-            <img 
-              src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=1000&auto=format&fit=crop" 
-              alt={title}
-              className="w-full h-full object-cover"
-            />
+    <Card
+      className="w-full max-w-md cursor-pointer transition-all duration-300 hover:shadow-lg"
+      onClick={toggleExpand}
+    >
+      <CardHeader className="space-y-1">
+        <div className="flex justify-between items-start w-full">
+          <div className="space-y-2">
+            <Badge
+              variant="secondary"
+              className={
+                progress === 100
+                  ? "bg-green-100 text-green-600"
+                  : "bg-blue-100 text-blue-600"
+              }
+            >
+              {progress === 100 ? "Completed" : "In Progress"}
+            </Badge>
+            <h3 className="text-2xl font-semibold">{title}</h3>
           </div>
-        </div>
-        <div className="w-1/2 p-6">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-2xl font-bold">{title}</CardTitle>
-            <UserButton />
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <p className="text-sm text-muted-foreground" style={{ lineHeight: '1.8rem', marginBottom: '1.5rem' }}>{description}</p>
-              </div>
-              
-              <div className="flex gap-2">
-                <Badge variant="outline" className="flex items-center gap-1">
-                  <Timer className="h-3 w-3" />
-                  {cookingTime}
-                </Badge>
-                <Badge variant="outline" className="flex items-center gap-1">
-                  <ChefHat className="h-3 w-3" />
-                  {difficulty}
-                </Badge>
-              </div>
-              
-              <motion.div
-                style={{ height: animatedHeight }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="overflow-hidden"
-              >
-                <div ref={contentRef} className="max-h-[60vh] overflow-y-auto">
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="flex gap-16 pt-2"
-                      >
-                        <div className="w-1/2">
-                          <h3 className="font-semibold mb-2">Ingredientes:</h3>
-                          <ul className="list-disc list-inside space-y-1">
-                            {ingredients.map((ingredient, index) => (
-                              <li key={index} className="text-sm">
-                                {ingredient.name} - {ingredient.amount}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        
-                        <div className="w-1/2">
-                          <h3 className="font-semibold mb-2">Pasos:</h3>
-                          <ul className="space-y-2">
-                            {steps.map((step, index) => (
-                              <li key={index} className="flex items-start gap-2">
-                                <div className={`w-2 h-2 rounded-full mt-2 ${step.completed ? 'bg-green-500' : 'bg-gray-300'}`} />
-                                <span className="text-sm">{step.description}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </motion.div>
-              
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-muted-foreground">Por {author}</span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={toggleExpand}
-                  className="flex items-center gap-1"
-                >
-                  {isExpanded ? (
-                    <>
-                      <ChevronUp className="h-4 w-4" />
-                      Ocultar detalles
-                    </>
-                  ) : (
-                    <>
-                      <ChevronDown className="h-4 w-4" />
-                      Ver detalles
-                    </>
-                  )}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button size="icon" variant="outline" className="h-8 w-8">
+                  <Github className="h-4 w-4" />
                 </Button>
-              </div>
-            </div>
-          </CardContent>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>View on GitHub</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
-      </div>
+      </CardHeader>
+
+      <CardContent>
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm text-gray-600">
+              <span>Progress</span>
+              <span>{progress}%</span>
+            </div>
+            <ProgressBar value={progress} className="h-2" />
+          </div>
+
+          <motion.div
+            style={{ height: animatedHeight }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="overflow-hidden"
+          >
+            <div ref={contentRef}>
+              <AnimatePresence>
+                {isExpanded && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="space-y-4 pt-2"
+                  >
+                    <div className="flex items-center justify-between text-sm text-gray-600">
+                      <div className="flex items-center">
+                        <Clock className="h-4 w-4 mr-2" />
+                        <span>Due {dueDate}</span>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center">
+                          <Star className="h-4 w-4 mr-1 text-yellow-400" />
+                          <span>{githubStars}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <GitBranch className="h-4 w-4 mr-1" />
+                          <span>{openIssues} issues</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="font-medium text-sm flex items-center">
+                        <Users className="h-4 w-4 mr-2" />
+                        Contributors
+                      </h4>
+                      <div className="flex -space-x-2">
+                        {contributors.map((contributor, index) => (
+                          <TooltipProvider key={index}>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Avatar className="border-2 border-white">
+                                  <AvatarImage
+                                    src={
+                                      contributor.image ||
+                                      `/placeholder.svg?height=32&width=32&text=${contributor.name[0]}`
+                                    }
+                                    alt={contributor.name}
+                                  />
+                                  <AvatarFallback>
+                                    {contributor.name[0]}
+                                  </AvatarFallback>
+                                </Avatar>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>{contributor.name}</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h4 className="font-medium text-sm">Recent Tasks</h4>
+                      {tasks.map((task, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center justify-between text-sm"
+                        >
+                          <span className="text-gray-600">{task.title}</span>
+                          {task.completed && (
+                            <CheckCircle2 className="h-4 w-4 text-green-500" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="space-y-2">
+                      <Button className="w-full">
+                        <MessageSquare className="h-4 w-4 mr-2" />
+                        View Discussion
+                      </Button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        </div>
+      </CardContent>
+
+      <CardFooter>
+        <div className="flex items-center justify-between w-full text-sm gap-3 text-gray-600 flex-wrap">
+          <span>Last updated: 2 hours ago</span>
+          {width < 300 &&  <span >/</span>}
+          <span>{openIssues} open issues</span>
+        </div>
+
+      </CardFooter>
     </Card>
   );
 }
