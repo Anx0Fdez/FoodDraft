@@ -6,11 +6,7 @@ import { User } from 'lucide-react'
 import { RecipeCard } from '@/components/ui/expandable-card'
 
 export default function Page() {
-    const { user, isLoaded } = useUser()
-    
-    if (!isLoaded) {
-        return <div>Cargando...</div>
-    }
+    const { user } = useUser()
     
     return (
         <div className="flex flex-col gap-8 p-8">
@@ -39,6 +35,7 @@ export default function Page() {
                         { description: "Cuando hierva, añadir el arroz y cocinar a fuego medio", completed: false }
                     ]}
                     author={user?.username || "Usuario"}
+                    imageUrl="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=1000&auto=format&fit=crop"
                 />
             </div>
 
