@@ -62,9 +62,14 @@
 
 'use client'
 
-import { ProjectStatusCard } from '@/components/ui/expandable-card'
+import { ProjectStatusCard } from '@/components/ui/expandable-card';
+import {useAuth} from "@clerk/nextjs";
 
-interface RecipeCardProps {
+/*
+VIDEO MIN 10:30 //TO-DO
+*/
+
+interface Post {
     title: string;
     progress: number;
     dueDate: string;
@@ -74,12 +79,12 @@ interface RecipeCardProps {
     openIssues: number;
 }
 
-export function RecipeCard(props: RecipeCardProps) {
+export function RecipeCard(props: Post) {
     return <ProjectStatusCard {...props} />
 }
 
 // Datos de ejemplo para desarrollo
-const postData: RecipeCardProps[] = [
+const postData: Post[] = [
     {
         title: "Receta de Paella",
         progress: 75,

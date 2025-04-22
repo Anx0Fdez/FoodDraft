@@ -44,12 +44,9 @@ Para configurar el proyecto, sigue estos pasos:
     NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=/feed
     NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=/feed
     
-    NEXT_PUBLIC_APPWRITE_PROJECT_ID=your_public_project_id
-    NEXT_PUBLIC_DATABASE_ID=your_public_database_id
-    NEXT_PUBLIC_TODOS_COLLECTION_ID=your_public_collection_id
-    NEXT_PUBLIC_IMAGES_STORAGE_ID=your_public_storage_id
-    
-    ```
+    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+        ```
 
 Asegúrate de reemplazar `your_public_key` y `your_private_key` con tus claves de Clerk correspondientes y los id de Appwrite.
 
