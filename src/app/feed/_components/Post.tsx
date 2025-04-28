@@ -5,7 +5,11 @@ import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient('https://your-supabase-url', 'your-anon-key');
+// Cambiado para usar las variables de entorno NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+);
 
 /*
 VIDEO MIN 10:30 //TO-DO

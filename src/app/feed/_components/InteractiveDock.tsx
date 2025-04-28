@@ -95,10 +95,10 @@ const DATA = {
   },
 };
 
-export function DockDemo({ onNewPost }) {
+export function DockDemo({ onNewPost }: { onNewPost: (post: { title: string; description: string; dueDate: string; ingredients?: string[] }) => void }) {
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const handleNewPost = (post) => {
+  const handleNewPost = (post: { title: string; description: string; dueDate: string; ingredients?: string[] }) => {
     onNewPost(post);
   };
 
