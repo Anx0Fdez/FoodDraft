@@ -1,7 +1,11 @@
 'use client'
 
 import { ProjectStatusCard } from '@/components/ui/expandable-card';
-import {useAuth} from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
+import { useEffect, useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient('https://your-supabase-url', 'your-anon-key');
 
 /*
 VIDEO MIN 10:30 //TO-DO
@@ -19,27 +23,30 @@ export function RecipeCard(props: Post) {
     return <ProjectStatusCard {...props} />;
 }
 
-// Datos de ejemplo para desarrollo
-const postData: Post[] = [
-    {
-        title: "Receta de Paella",
-        description: "Una deliciosa receta de paella con mariscos.",
-        dueDate: "2024-04-01",
-        tasks: [
-            { title: "Preparar ingredientes", completed: true },
-            { title: "Calentar aceite", completed: true },
-            { title: "Añadir arroz", completed: false },
-            { title: "Cocinar a fuego lento", completed: false }
-        ],
-        ingredients: ["Arroz 300gr", "Langostinos 200gr", "Azafrán 5gr", "Caldo de pescado 500ml", "Pimiento rojo 1", "Guisantes 100gr", "Aceite de oliva 50ml" , "Sal al gusto"]
-    }
-];
-
 export default function Post() {
+    const [posts, setPosts] = useState<Post[]>([]);
+
+    const fetchPosts = async () => {
+        const { data, error } = await supabase.from('post').select('*');
+        if (error) {
+            console.error('Error fetching posts:', error.message, error.details, error.hint);
+        } else if (data) {
+            setPosts(data);
+        }
+    };
+
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    const handleNewPost = (newPost: Post) => {
+        setPosts((prevPosts) => [...prevPosts, newPost]);
+    };
+
     return (
         <div className="flex flex-col gap-6 p-6">
-            {postData.map((item, index) => (
-                <RecipeCard key={index} {...item} />
+            {posts.map((post, index) => (
+                <RecipeCard key={index} {...post} />
             ))}
         </div>
     );

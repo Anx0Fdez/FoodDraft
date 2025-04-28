@@ -2,8 +2,7 @@
 
 import { CalendarIcon, HomeIcon, MailIcon, PencilIcon, CookingPot } from "lucide-react";
 import Link from "next/link";
-import React from "react";
-
+import React, { useState } from "react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -16,6 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { UserButton } from "@clerk/nextjs";
+import { NewPostModal } from "@/components/ui/new-post-modal";
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -95,7 +95,13 @@ const DATA = {
   },
 };
 
-export function DockDemo() {
+export function DockDemo({ onNewPost }) {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleNewPost = (post) => {
+    onNewPost(post);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       <TooltipProvider>
@@ -111,6 +117,7 @@ export function DockDemo() {
                       buttonVariants({ variant: "ghost", size: "icon" }),
                       "size-12 rounded-full",
                     )}
+                    onClick={item.label === "New" ? () => setModalOpen(true) : undefined}
                   >
                     <item.icon className="size-4" />
                   </Link>
@@ -155,6 +162,11 @@ export function DockDemo() {
             </Tooltip>
           </DockIcon>
         </Dock>
+        <NewPostModal
+          isOpen={isModalOpen}
+          onClose={() => setModalOpen(false)}
+          onPostCreated={handleNewPost}
+        />
       </TooltipProvider>
     </div>
   );
