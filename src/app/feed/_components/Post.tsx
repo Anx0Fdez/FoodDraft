@@ -32,9 +32,7 @@ export default function Post() {
 
     const fetchPosts = async () => {
         const { data, error } = await supabase.from('post').select('*');
-        if (error) {
-            console.error('Error fetching posts:', error.message, error.details, error.hint);
-        } else if (data) {
+        if (!error && data) {
             setPosts(data);
         }
     };
