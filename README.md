@@ -44,12 +44,18 @@ Para configurar el proyecto, sigue estos pasos:
     NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=/feed
     NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=/feed
     
-    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+    DATABASE_URL=your_database_url
     ```
 
 Asegúrate de reemplazar `your_public_key` y `your_private_key` con tus claves de Clerk correspondientes y los id de Appwrite.
 
+5. Inicia el servidor de desarrollo:
+    ```bash
+    npm run dev
+
+    cloudflared tunnel --url http://localhost:3000
+    ```
+6. Durante la etapa de desarrollo, al usarcloudflared, actualiza el webhook de Clerk para que apunte a la URL dinamica de cloudflared. Puedes hacerlo desde la consola de Clerk, en la sección de Webhooks.
 
 >[!CAUTION] 
 > Este proyecto se encuentra actualmente en desarrollo. Algunas funcionalidades pueden no estar completamente implementadas o pueden cambiar en el futuro.
