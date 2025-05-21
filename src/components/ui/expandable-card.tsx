@@ -23,6 +23,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useExpandable } from "@/hooks/use-expandable";
+//import { UserButton, UserProfile, UserAvatar } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/nextjs";
 
 interface ProjectStatusCardProps {
   title: string;
@@ -33,6 +35,8 @@ interface ProjectStatusCardProps {
   id: number;
   created_at?: string; // Añadido campo para la fecha de creación
   onDelete?: (id: number) => void;
+  user_id?: string; // Añadido campo para el ID del usuario que creó el post
+  userId?: string; // Añadido campo para el ID del usuario actual
 }
 
 export function ProjectStatusCard({
@@ -44,6 +48,8 @@ export function ProjectStatusCard({
   id,
   created_at,
   onDelete,
+  user_id,
+  userId,
 }: ProjectStatusCardProps) {
   const { isExpanded, toggleExpand, animatedHeight } = useExpandable();
   const contentRef = useRef<HTMLDivElement>(null);
@@ -85,26 +91,33 @@ export function ProjectStatusCard({
             </Badge>
             <h3 className="text-2xl font-semibold">{title}</h3>
           </div>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  size="icon"
-                  variant="destructive"
-                  className="h-8 w-8"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowConfirm(true);
-                  }}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Eliminar post</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <div className="flex items-center gap-2">
+            {user_id && (
+              <UserAvatar userId={user_id} size={32} />
+            )}
+            {user_id === userId && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      size="icon"
+                      variant="destructive"
+                      className="h-8 w-8"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowConfirm(true);
+                      }}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Eliminar post</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </div>
         </div>
       </CardHeader>
 
