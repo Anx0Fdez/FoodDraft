@@ -19,13 +19,17 @@ interface Post {
     ingredients?: string[]; // Added optional ingredients field
     duration: string; // Nueva variable para duración
     created_at?: string; // Añadido campo para la fecha de creación
+    user_id?: string; // Added user_id field
+    profile_image_url?: string; // Added profile_image_url field
+    username?: string; // Added username field
 }
 
-export function RecipeCard(props: Post & { onDelete?: (id: number) => void }) {
-    return <ProjectStatusCard {...props} created_at={props.created_at} />;
+export function RecipeCard(props: Post & { onDelete?: (id: number) => void; userId?: string }) {
+    return <ProjectStatusCard {...props} created_at={props.created_at} user_id={props.user_id} profile_image_url={props.profile_image_url} username={props.username} />;
 }
 
 export default function Post() {
+    const { userId } = useAuth();
     const [posts, setPosts] = useState<Post[]>([]);
 
     const fetchPosts = async () => {
@@ -52,7 +56,7 @@ export default function Post() {
     return (
         <div className="flex flex-col gap-6 p-6 max-w-6xl w-full mx-auto">
             {posts.map((post) => (
-                <RecipeCard key={post.id} {...post} onDelete={handleDeletePost} />
+                <RecipeCard key={post.id} {...post} onDelete={handleDeletePost} userId={userId || undefined} />
             ))}
         </div>
     );

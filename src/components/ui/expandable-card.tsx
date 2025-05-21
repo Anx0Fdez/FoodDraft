@@ -36,7 +36,8 @@ interface ProjectStatusCardProps {
   created_at?: string; // Añadido campo para la fecha de creación
   onDelete?: (id: number) => void;
   user_id?: string; // Añadido campo para el ID del usuario que creó el post
-  userId?: string; // Añadido campo para el ID del usuario actual
+  profile_image_url?: string; // Añadido campo para la URL de la imagen de perfil
+  username?: string; // Añadido campo para el nombre de usuario
 }
 
 export function ProjectStatusCard({
@@ -49,12 +50,15 @@ export function ProjectStatusCard({
   created_at,
   onDelete,
   user_id,
-  userId,
+  profile_image_url,
+  username,
 }: ProjectStatusCardProps) {
   const { isExpanded, toggleExpand, animatedHeight } = useExpandable();
   const contentRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
   const [showConfirm, setShowConfirm] = useState(false);
+  const { user } = useUser();
+  const currentUserId = user?.id;
 
   useEffect(() => {
     const updateWidth = () => {
@@ -92,10 +96,10 @@ export function ProjectStatusCard({
             <h3 className="text-2xl font-semibold">{title}</h3>
           </div>
           <div className="flex items-center gap-2">
-            {user_id && (
-              <UserAvatar userId={user_id} size={32} />
+            {profile_image_url && (
+              <img src={profile_image_url} alt={username || "avatar"} className="h-8 w-8 rounded-full object-cover border" />
             )}
-            {user_id === userId && (
+            {user_id === currentUserId && (
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
