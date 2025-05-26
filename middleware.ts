@@ -2,7 +2,7 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const isPrivateRoute = createRouteMatcher(['/feed(.*)'])
 
-export default clerkMiddleware(async(auth, request) => {
+export default clerkMiddleware(async(auth, request, getAuth) => {
   if (isPrivateRoute(request)) {
     await auth.protect()
   }
