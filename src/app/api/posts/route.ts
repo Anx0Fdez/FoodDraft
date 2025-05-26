@@ -11,6 +11,7 @@ export async function GET() {
       SELECT post.*, users.profile_image_url, users.username, users.id as user_id
       FROM post
       LEFT JOIN users ON post.user_id = users.id
+      ORDER BY (post.likes - post.dislikes) DESC, post.id DESC
     `);
     return NextResponse.json(rows);
   } catch (error) {

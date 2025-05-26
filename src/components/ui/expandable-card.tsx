@@ -39,6 +39,8 @@ interface ProjectStatusCardProps {
   user_id?: string; // Añadido campo para el ID del usuario que creó el post
   profile_image_url?: string; // Añadido campo para la URL de la imagen de perfil
   username?: string; // Añadido campo para el nombre de usuario
+  likes?: number; // Añadido campo para la cantidad de likes
+  dislikes?: number; // Añadido campo para la cantidad de dislikes
 }
 
 export function ProjectStatusCard({
@@ -53,6 +55,8 @@ export function ProjectStatusCard({
   user_id,
   profile_image_url,
   username,
+  likes,
+  dislikes,
 }: ProjectStatusCardProps) {
   const { isExpanded, toggleExpand, animatedHeight } = useExpandable();
   const contentRef = useRef<HTMLDivElement>(null);
@@ -340,11 +344,50 @@ export function ProjectStatusCard({
       )}
 
       <CardFooter>
-        <div className="flex items-center justify-between w-full text-sm gap-3 text-gray-600 flex-wrap">
-          <span>
-            Creado el: {created_at && !isNaN(Date.parse(created_at)) ? new Date(created_at).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' }) : 'Fecha no disponible'}
-          </span>
-          {width < 300 && <span>/</span>}
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center text-sm gap-3 text-gray-600 flex-wrap">
+            <span>
+              Creado el: {created_at && !isNaN(Date.parse(created_at)) ? new Date(created_at).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' }) : 'Fecha no disponible'}
+            </span>
+            {width < 300 && <span>/</span>}
+          </div>
+          <div className="flex flex-col items-center gap-1 mr-2">
+            <button
+              className="p-0 border-none bg-transparent text-orange-800 hover:text-orange-600 transition-colors"
+              onClick={async (e) => {
+                e.stopPropagation();
+                if (!currentUserId) return;
+                await fetch(`/api/posts/${id}`, {
+                  method: 'PATCH',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ userId: currentUserId, vote: 1 })
+                });
+                window.location.reload();
+              }}
+              aria-label="Like"
+            >
+              {/* Flecha hacia arriba */}
+              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 6l6 6H6z"/></svg>
+            </button>
+            <span className="font-semibold select-none text-orange-400">{(likes || 0) - (dislikes || 0)}</span>
+            <button
+              className="p-0 border-none bg-transparent text-orange-800 hover:text-orange-600 transition-colors"
+              onClick={async (e) => {
+                e.stopPropagation();
+                if (!currentUserId) return;
+                await fetch(`/api/posts/${id}`, {
+                  method: 'PATCH',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ userId: currentUserId, vote: -1 })
+                });
+                window.location.reload();
+              }}
+              aria-label="Dislike"
+            >
+              {/* Flecha hacia abajo */}
+              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 18l6-6H6z"/></svg>
+            </button>
+          </div>
         </div>
       </CardFooter>
     </Card>

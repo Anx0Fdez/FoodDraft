@@ -22,6 +22,8 @@ interface Post {
     user_id?: string; // Added user_id field
     profile_image_url?: string; // Added profile_image_url field
     username?: string; // Added username field
+    likes?: number; // Added likes field
+    dislikes?: number; // Added dislikes field
 }
 
 export function RecipeCard(props: Post & { onDelete?: (id: number) => void; userId?: string }) {
