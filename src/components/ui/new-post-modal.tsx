@@ -38,6 +38,7 @@ export function NewPostModal({ isOpen, onClose, onPostCreated }: { isOpen: boole
             onPostCreated(data);
             onClose();
             setTitle(''); setDescription(''); setIngredients(''); setDuration('');
+            window.location.reload(); // Recarga la página para mostrar el nuevo post
         } else {
             const err = await res.json();
             setError(err?.error || 'Error creando post');

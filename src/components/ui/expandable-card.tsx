@@ -104,7 +104,8 @@ export function ProjectStatusCard({
             </Badge>
             <h3 className="text-2xl font-semibold">{title}</h3>
           </div>
-          <div className="flex items-center gap-0.5"> {/* Juntamos más los botones */}
+          <div className="flex items-center gap-0.5">
+            {/* Botones de editar y eliminar solo para el dueño */}
             {user_id === currentUserId && (
               <TooltipProvider>
                 {/* Botón de editar post */}
@@ -146,11 +147,15 @@ export function ProjectStatusCard({
                     <p>Eliminar post</p>
                   </TooltipContent>
                 </Tooltip>
-                {/* Avatar del usuario */}
+                {/* Avatar del usuario, siempre visible si existe */}
                 {profile_image_url && (
                   <img src={profile_image_url} alt={username || "avatar"} className="h-8 w-8 rounded-full object-cover border ml-2" />
                 )}
               </TooltipProvider>
+            )}
+            {/* Avatar de otros usuarios (si no es el dueño) */}
+            {user_id !== currentUserId && profile_image_url && (
+              <img src={profile_image_url} alt={username || "avatar"} className="h-8 w-8 rounded-full object-cover border ml-2" />
             )}
           </div>
         </div>
