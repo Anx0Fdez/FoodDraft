@@ -44,10 +44,6 @@ export default function Post() {
         fetchPosts();
     }, []);
 
-    const handleNewPost = (newPost: Post) => {
-        setPosts((prevPosts) => [...prevPosts, newPost]);
-    };
-
     const handleDeletePost = async (id: number) => {
         await fetch(`/api/posts/${id}`, { method: 'DELETE' });
         setPosts((prevPosts) => prevPosts.filter(post => post.id !== id));

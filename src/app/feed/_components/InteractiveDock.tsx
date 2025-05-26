@@ -95,18 +95,14 @@ const DATA = {
   },
 };
 
-export function DockDemo({ onNewPost }: { onNewPost: (post: { title: string; description: string; dueDate: string; ingredients?: string[] }) => void }) {
+export function DockDemo() {
   const [isModalOpen, setModalOpen] = useState(false);
-
-  const handleNewPost = (post: { title: string; description: string; dueDate: string; ingredients?: string[] }) => {
-    onNewPost(post);
-  };
 
   return (
     <div className="flex flex-col items-center justify-center">
       <TooltipProvider>
         <Dock direction="middle">
-          {DATA.navbar.map((item) => (
+          {DATA.navbar.map((item, idx) => (
             <DockIcon key={item.label}>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -117,7 +113,7 @@ export function DockDemo({ onNewPost }: { onNewPost: (post: { title: string; des
                       buttonVariants({ variant: "ghost", size: "icon" }),
                       "size-12 rounded-full",
                     )}
-                    onClick={item.label === "New" ? () => setModalOpen(true) : undefined}
+                    onClick={idx === 1 ? (e) => { e.preventDefault(); setModalOpen(true); } : undefined}
                   >
                     <item.icon className="size-4" />
                   </Link>
@@ -162,12 +158,8 @@ export function DockDemo({ onNewPost }: { onNewPost: (post: { title: string; des
             </Tooltip>
           </DockIcon>
         </Dock>
-        <NewPostModal
-          isOpen={isModalOpen}
-          onClose={() => setModalOpen(false)}
-          onPostCreated={handleNewPost}
-        />
       </TooltipProvider>
+      <NewPostModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} onPostCreated={() => setModalOpen(false)} />
     </div>
   );
 }

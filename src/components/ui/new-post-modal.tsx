@@ -1,21 +1,26 @@
+import { useAuth } from '@clerk/nextjs';
 import { useState } from 'react';
 
 export function NewPostModal({ isOpen, onClose, onPostCreated }: { isOpen: boolean; onClose: () => void; onPostCreated: (post: any) => void }) {
+    const { userId } = useAuth();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [ingredients, setIngredients] = useState('');
-    const [tasks, setTasks] = useState(''); // Opcional: para tareas
-    const [duration, setDuration] = useState(''); // Nueva variable para duración
+    const [duration, setDuration] = useState('');
     const [error, setError] = useState('');
 
     const handleSubmit = async () => {
-        const now = new Date();
-        const isoDate = now.toISOString();
-        if (!title.trim() || !duration.trim()) {
-            setError('El nombre y el tiempo de duración son obligatorios.');
+        if (!title.trim() || !duration.trim() || !ingredients.trim()) {
+            setError('El título, duración e ingredientes son obligatorios.');
+            return;
+        }
+        if (!userId) {
+            setError('Debes iniciar sesión para crear un post.');
             return;
         }
         setError('');
+        const now = new Date();
+        const isoDate = now.toISOString();
         const res = await fetch('/api/posts', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -23,17 +28,19 @@ export function NewPostModal({ isOpen, onClose, onPostCreated }: { isOpen: boole
                 title,
                 description,
                 dueDate: isoDate,
-                duration, // Enviar duración
-                tasks: tasks ? JSON.parse(tasks) : [], // Si quieres permitir tareas
-                ingredients: ingredients.split(',').map(i => i.trim())
+                duration,
+                ingredients: ingredients.split(',').map(i => i.trim()),
+                userId
             })
         });
         if (res.ok) {
             const data = await res.json();
             onPostCreated(data);
             onClose();
+            setTitle(''); setDescription(''); setIngredients(''); setDuration('');
         } else {
-            setError('Error creando post');
+            const err = await res.json();
+            setError(err?.error || 'Error creando post');
         }
     };
 
@@ -64,14 +71,6 @@ export function NewPostModal({ isOpen, onClose, onPostCreated }: { isOpen: boole
                     onChange={(e) => setDuration(e.target.value)}
                     className="w-full mb-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
-                {/*
-                <input
-                    type="date"
-                    value={dueDate}
-                    onChange={(e) => setDueDate(e.target.value)}
-                    className="w-full mb-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
-                />
-                */}
                 <input
                     type="text"
                     placeholder="Ingredientes (separados-comas)"
