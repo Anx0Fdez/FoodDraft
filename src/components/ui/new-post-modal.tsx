@@ -48,27 +48,46 @@ export function NewPostModal({ isOpen, onClose, onPostCreated }: { isOpen: boole
 
     return (
         <div className="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-96 border border-grey-300">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-[600px] border border-grey-300">
                 <h2 className="text-xl font-semibold text-orange-700 mb-4">Crear nueva receta</h2>
                 {error && <div className="text-red-600 mb-2 text-sm">{error}</div>}
                 <input
                     type="text"
                     placeholder="Titulo"
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) => {
+                        if (e.target.value.length <= 20) {
+                            setTitle(e.target.value);
+                            setError("");
+                        } else {
+                            setError("El título no puede superar los 20 caracteres.");
+                        }
+                    }}
+                    maxLength={20}
                     className="w-full mb-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
                 <textarea
                     placeholder="Descripcion"
                     value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e) => {
+                        if (e.target.value.length <= 320) {
+                            setDescription(e.target.value);
+                            setError("");
+                        } else {
+                            setError("La descripción no puede superar los 320 caracteres.");
+                        }
+                    }}
+                    maxLength={320}
                     className="w-full mb-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
                 ></textarea>
                 <input
                     type="text"
                     placeholder="Duración de la receta (ej: 45 min)"
                     value={duration}
-                    onChange={(e) => setDuration(e.target.value)}
+                    onChange={(e) => {
+                        if (e.target.value.length <= 10) setDuration(e.target.value);
+                    }}
+                    maxLength={10}
                     className="w-full mb-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
                 <input
