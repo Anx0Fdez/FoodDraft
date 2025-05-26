@@ -7,6 +7,7 @@ import {
   MessageSquare,
   CheckCircle2,
   Trash2,
+  Edit2,
 } from "lucide-react";
 import {
   Card,
@@ -57,6 +58,14 @@ export function ProjectStatusCard({
   const contentRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editData, setEditData] = useState({
+    title,
+    description,
+    duration,
+    ingredients: ingredients?.join(', ') || '',
+  });
+  const [error, setError] = useState("");
   const { user } = useUser();
   const currentUserId = user?.id;
 
@@ -89,24 +98,42 @@ export function ProjectStatusCard({
           <div className="space-y-2">
             <Badge
               variant="secondary"
-              className="bg-blue-100 text-blue-600"
+              className="bg-orange-100 text-orange-700 border border-orange-200"
             >
               {duration}
             </Badge>
             <h3 className="text-2xl font-semibold">{title}</h3>
           </div>
-          <div className="flex items-center gap-2">
-            {profile_image_url && (
-              <img src={profile_image_url} alt={username || "avatar"} className="h-8 w-8 rounded-full object-cover border" />
-            )}
+          <div className="flex items-center gap-0.5"> {/* Juntamos más los botones */}
             {user_id === currentUserId && (
               <TooltipProvider>
+                {/* Botón de editar post */}
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
                       size="icon"
-                      variant="destructive"
-                      className="h-8 w-8"
+                      variant="secondary"
+                      className="h-8 w-8 bg-orange-100 hover:bg-orange-200 text-orange-700 border border-orange-200 transition-colors"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setEditData({ title, description, duration, ingredients: ingredients?.join(', ') || '' });
+                        setShowEditModal(true);
+                      }}
+                    >
+                      <Edit2 className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Editar post</p>
+                  </TooltipContent>
+                </Tooltip>
+                {/* Botón de eliminar post */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="h-8 w-8 bg-orange-800 hover:bg-orange-900 text-white border border-orange-800 transition-colors ml-1"
                       onClick={(e) => {
                         e.stopPropagation();
                         setShowConfirm(true);
@@ -119,6 +146,10 @@ export function ProjectStatusCard({
                     <p>Eliminar post</p>
                   </TooltipContent>
                 </Tooltip>
+                {/* Avatar del usuario */}
+                {profile_image_url && (
+                  <img src={profile_image_url} alt={username || "avatar"} className="h-8 w-8 rounded-full object-cover border ml-2" />
+                )}
               </TooltipProvider>
             )}
           </div>
@@ -200,6 +231,104 @@ export function ProjectStatusCard({
               >
                 Eliminar
               </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL DE EDICIÓN */}
+      {showEditModal && (
+        <div className="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-[600px] border border-grey-300">
+            <h2 className="text-xl font-semibold text-orange-700 mb-4">Editar receta</h2>
+            {error && <div className="text-red-600 mb-2 text-sm">{error}</div>}
+            <input
+              type="text"
+              placeholder="Título"
+              value={editData.title}
+              maxLength={60}
+              onChange={e => {
+                if (e.target.value.length <= 60) {
+                  setEditData({ ...editData, title: e.target.value });
+                  setError("");
+                } else {
+                  setError("El título no puede superar los 60 caracteres.");
+                }
+              }}
+              className="w-full mb-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
+            />
+            <textarea
+              placeholder="Descripción"
+              value={editData.description}
+              maxLength={1500}
+              onChange={e => {
+                if (e.target.value.length <= 1500) {
+                  setEditData({ ...editData, description: e.target.value });
+                  setError("");
+                } else {
+                  setError("La descripción no puede superar los 1500 caracteres.");
+                }
+              }}
+              className="w-full mb-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
+            />
+            <input
+              type="text"
+              placeholder="Duración"
+              value={editData.duration}
+              maxLength={8}
+              onChange={e => {
+                if (e.target.value.length <= 8) {
+                  setEditData({ ...editData, duration: e.target.value });
+                  setError("");
+                } else {
+                  setError("La duración no puede superar los 8 caracteres.");
+                }
+              }}
+              className="w-full mb-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
+            />
+            <input
+              type="text"
+              placeholder="Ingredientes (separados por comas)"
+              value={editData.ingredients}
+              onChange={e => setEditData({ ...editData, ingredients: e.target.value })}
+              className="w-full mb-4 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
+            />
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={e => {
+                  e.stopPropagation();
+                  setShowEditModal(false);
+                }}
+                className="px-4 py-2 bg-orange-200 text-orange-700 rounded hover:bg-orange-300"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={async e => {
+                  e.stopPropagation();
+                  // Lógica para actualizar el post
+                  const res = await fetch(`/api/posts/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      title: editData.title,
+                      description: editData.description,
+                      duration: editData.duration,
+                      ingredients: editData.ingredients.split(',').map(i => i.trim()),
+                    })
+                  });
+                  if (res.ok) {
+                    setShowEditModal(false);
+                    window.location.reload();
+                  } else {
+                    const err = await res.json();
+                    setError(err?.error || 'Error actualizando post');
+                  }
+                }}
+                className="px-4 py-2 bg-orange-800 text-white rounded hover:bg-orange-900"
+              >
+                Guardar cambios
+              </button>
             </div>
           </div>
         </div>
