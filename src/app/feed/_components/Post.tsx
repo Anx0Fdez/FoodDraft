@@ -61,12 +61,13 @@ export default function Post() {
 
     return (
         <div className="flex flex-col gap-6 p-6 max-w-6xl w-full mx-auto">
-            <div className="flex items-center mb-4">
-                <label className="mr-2 text-sm font-semibold text-orange-700">Ordenar por:</label>
+            <div className="flex items-center mb-3">
+                <label className="mr-3 text-base font-semibold text-orange-700">Ordenar por:</label>
                 <select
-                    className="border border-orange-200 rounded px-3 py-1 text-sm bg-orange-50 text-orange-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 transition-colors hover:bg-orange-100"
+                    className="border border-orange-300 rounded-lg px-5 py-2 text-base bg-orange-50 text-orange-800 shadow focus:outline-none focus:ring-2 focus:ring-orange-400 transition-colors hover:bg-orange-100 focus:bg-orange-100 min-w-[200px]"
                     value={order}
                     onChange={e => setOrder(e.target.value)}
+                    style={{ fontWeight: 600 }}
                 >
                     {ORDER_OPTIONS.map(opt => (
                         <option key={opt.value} value={opt.value}>{opt.label}</option>
