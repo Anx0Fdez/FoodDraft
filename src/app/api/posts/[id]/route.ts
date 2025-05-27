@@ -18,10 +18,14 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     const id = params.id;
-    const { title, description, duration, ingredients, likes, dislikes } = await req.json();
+    const { title, description, duration, ingredients } = await req.json();
+    // Obtener los likes y dislikes actuales para no sobreescribirlos con null
+    const { rows: postRows } = await pool.query('SELECT likes, dislikes FROM post WHERE id = $1', [id]);
+    const currentLikes = postRows[0]?.likes ?? 0;
+    const currentDislikes = postRows[0]?.dislikes ?? 0;
     const { rows } = await pool.query(
       'UPDATE post SET title = $1, description = $2, duration = $3, ingredients = $4, likes = $5, dislikes = $6 WHERE id = $7 RETURNING *',
-      [title, description, duration, ingredients, likes, dislikes, id]
+      [title, description, duration, ingredients, currentLikes, currentDislikes, id]
     );
     return NextResponse.json(rows[0], { status: 200 });
   } catch (error) {
