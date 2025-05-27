@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     }
     const res = await fetch(url);
     if (!res.ok) {
-      return NextResponse.json({ error: 'Error consultando Spoonacular' }, { status: 500 });
+      return NextResponse.json({ error: 'Error consultando Spoonacular (Superada las peticiones diarias)' }, { status: 500 });
     }
     const data = await res.json();
     // Unificar el formato de resultados

@@ -31,10 +31,10 @@ export function RecipeCard(props: Post & { onDelete?: (id: number) => void; user
 }
 
 const ORDER_OPTIONS = [
-  { value: "popular", label: "Más likes" },
-  { value: "dislikes", label: "Más dislikes" },
-  { value: "recent", label: "Más reciente" },
-  { value: "oldest", label: "Más antiguo" },
+    { value: "popular", label: "Más likes" },
+    { value: "dislikes", label: "Más dislikes" },
+    { value: "recent", label: "Más reciente" },
+    { value: "oldest", label: "Más antiguo" },
 ];
 
 export default function Post() {
