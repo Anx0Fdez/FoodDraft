@@ -5,13 +5,20 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const url = new URL(req.url!);
+    const order = url.searchParams.get('order') || 'popular';
+    let orderBy = '(post.likes - post.dislikes) DESC, post.id DESC';
+    if (order === 'dislikes') orderBy = 'post.dislikes DESC, post.id DESC';
+    if (order === 'recent') orderBy = 'post.created_at DESC';
+    if (order === 'oldest') orderBy = 'post.created_at ASC';
+    if (order === 'duration') orderBy = 'post.duration ASC NULLS LAST';
     const { rows } = await pool.query(`
       SELECT post.*, users.profile_image_url, users.username, users.id as user_id
       FROM post
       LEFT JOIN users ON post.user_id = users.id
-      ORDER BY (post.likes - post.dislikes) DESC, post.id DESC
+      ORDER BY ${orderBy}
     `);
     return NextResponse.json(rows);
   } catch (error) {

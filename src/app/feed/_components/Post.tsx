@@ -30,12 +30,20 @@ export function RecipeCard(props: Post & { onDelete?: (id: number) => void; user
     return <ProjectStatusCard {...props} created_at={props.created_at} user_id={props.user_id} profile_image_url={props.profile_image_url} username={props.username} />;
 }
 
+const ORDER_OPTIONS = [
+  { value: "popular", label: "Más likes" },
+  { value: "dislikes", label: "Más dislikes" },
+  { value: "recent", label: "Más reciente" },
+  { value: "oldest", label: "Más antiguo" },
+];
+
 export default function Post() {
     const { userId } = useAuth();
     const [posts, setPosts] = useState<Post[]>([]);
+    const [order, setOrder] = useState("popular");
 
-    const fetchPosts = async () => {
-        const res = await fetch('/api/posts');
+    const fetchPosts = async (orderBy = order) => {
+        const res = await fetch(`/api/posts?order=${orderBy}`);
         if (res.ok) {
             const data = await res.json();
             setPosts(data);
@@ -43,8 +51,8 @@ export default function Post() {
     };
 
     useEffect(() => {
-        fetchPosts();
-    }, []);
+        fetchPosts(order);
+    }, [order]);
 
     const handleDeletePost = async (id: number) => {
         await fetch(`/api/posts/${id}`, { method: 'DELETE' });
@@ -53,6 +61,18 @@ export default function Post() {
 
     return (
         <div className="flex flex-col gap-6 p-6 max-w-6xl w-full mx-auto">
+            <div className="flex items-center mb-4">
+                <label className="mr-2 text-sm font-semibold text-orange-700">Ordenar por:</label>
+                <select
+                    className="border border-orange-200 rounded px-3 py-1 text-sm bg-orange-50 text-orange-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400 transition-colors hover:bg-orange-100"
+                    value={order}
+                    onChange={e => setOrder(e.target.value)}
+                >
+                    {ORDER_OPTIONS.map(opt => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                </select>
+            </div>
             {posts.map((post) => (
                 <RecipeCard key={post.id} {...post} onDelete={handleDeletePost} userId={userId || undefined} />
             ))}
