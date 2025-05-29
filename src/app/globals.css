@@ -36,13 +36,21 @@ body {
 
     --color-50: #fffbea;
     --color-100: #fff1c5;
+    --color-150: #ffe89f;
     --color-200: #ffe385;
+    --color-250: #ffd95e;
     --color-300: #ffcd46;
+    --color-350: #ffc12f;
     --color-400: #ffb71b;
+    --color-450: #ffa20e;
     --color-500: #ff9300;
+    --color-550: #f27f00;
     --color-600: #e26c00;
+    --color-650: #c95d01;
     --color-700: #bb4802;
+    --color-750: #a03c06;
     --color-800: #983808;
+    --color-850: #872f09;
     --color-900: #7c2e0b;
     --color-950: #481500;
     --color-1: 0 100% 63%;
