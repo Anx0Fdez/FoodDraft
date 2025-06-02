@@ -153,13 +153,35 @@ export function ProjectStatusCard({
                 </Tooltip>
                 {/* Avatar del usuario, siempre visible si existe */}
                 {profile_image_url && (
-                  <img src={profile_image_url} alt={username || "avatar"} className="h-8 w-8 rounded-full object-cover border ml-2" />
+                  <div className="relative group ml-2">
+                    <img
+                      src={profile_image_url}
+                      alt={username || "avatar"}
+                      className="h-8 w-8 rounded-full object-cover border cursor-pointer"
+                    />
+                    {username && (
+                      <span className="absolute left-1/2 -translate-x-1/2 top-10 z-50 px-3 py-1 rounded font-semibold text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600" style={{textShadow: '0 2px 8px #b45309, 0 1px 2px #fff6e5'}}>
+                        {username}
+                      </span>
+                    )}
+                  </div>
                 )}
               </TooltipProvider>
             )}
             {/* Avatar de otros usuarios (si no es el dueño) */}
             {user_id !== currentUserId && profile_image_url && (
-              <img src={profile_image_url} alt={username || "avatar"} className="h-8 w-8 rounded-full object-cover border ml-2" />
+              <div className="relative group ml-2">
+                <img
+                  src={profile_image_url}
+                  alt={username || "avatar"}
+                  className="h-8 w-8 rounded-full object-cover border cursor-pointer"
+                />
+                {username && (
+                  <span className="absolute left-1/2 -translate-x-1/2 top-10 z-50 px-3 py-1 rounded font-semibold text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600" style={{textShadow: '0 2px 8px #b45309, 0 1px 2px #fff6e5'}}>
+                    {username}
+                  </span>
+                )}
+              </div>
             )}
           </div>
         </div>
