@@ -41,6 +41,7 @@ export default function Post() {
     const { userId } = useAuth();
     const [posts, setPosts] = useState<Post[]>([]);
     const [order, setOrder] = useState("popular");
+    const [search, setSearch] = useState("");
 
     const fetchPosts = async (orderBy = order) => {
         const res = await fetch(`/api/posts?order=${orderBy}`);
@@ -59,9 +60,10 @@ export default function Post() {
         setPosts((prevPosts) => prevPosts.filter(post => post.id !== id));
     };
 
+    const filteredPosts = posts.filter(post => post.title.toLowerCase().includes(search.toLowerCase()));
     return (
         <div className="flex flex-col gap-6 p-6 max-w-6xl w-full mx-auto">
-            <div className="flex items-center mb-3">
+            <div className="flex items-center mb-3 gap-4">
                 <label className="mr-3 text-base font-semibold text-orange-700">Ordenar por:</label>
                 <select
                     className="border border-orange-300 rounded-lg px-5 py-2 text-base bg-orange-50 text-orange-800 shadow focus:outline-none focus:ring-2 focus:ring-orange-400 transition-colors hover:bg-orange-100 focus:bg-orange-100 min-w-[200px]"
@@ -73,8 +75,15 @@ export default function Post() {
                         <option key={opt.value} value={opt.value}>{opt.label}</option>
                     ))}
                 </select>
+                <input
+                    type="text"
+                    placeholder="Buscar receta por nombre..."
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                    className="px-4 py-2 border border-orange-300 rounded-lg text-base bg-orange-50 text-orange-800 focus:outline-none focus:ring-2 focus:ring-orange-400 flex-1 min-w-0"
+                />
             </div>
-            {posts.map((post) => (
+            {filteredPosts.map((post) => (
                 <RecipeCard key={post.id} {...post} onDelete={handleDeletePost} userId={userId || undefined} />
             ))}
         </div>
