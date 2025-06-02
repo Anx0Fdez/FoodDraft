@@ -189,7 +189,7 @@ export function ProjectStatusCard({
                     className="space-y-4 pt-2"
                   >
                     <div className="space-y-2">
-                      <h4 className="font-medium text-sm">Ingredientes</h4>
+                      <h4 className="font-bold underline text-sm md:text-lg bg-gradient-to-r from-orange-400 via-orange-300 to-orange-600 bg-clip-text text-transparent mb-1">Ingredientes</h4>
                       <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                         {ingredients?.map((ingredient, index) => (
                           <div
