@@ -66,30 +66,15 @@ const Icons = {
 
 const DATA = {
   navbar: [
-    { href: "/", icon: HomeIcon, label: "Home" },
+    { href: "/feed", icon: HomeIcon, label: "Home" },
     { href: "#", icon: PencilIcon, label: "New" },
   ],
   contact: {
     social: {
       Recetas: {
-        name: "Mis Recetas",
-        url: "#",
+        name: "Recetas",
+        url: "/recetario",
         icon: Icons.recipes,
-      },
-      LinkedIn: {
-        name: "LinkedIn",
-        url: "#",
-        icon: Icons.linkedin,
-      },
-      X: {
-        name: "X",
-        url: "#",
-        icon: Icons.x,
-      },
-      email: {
-        name: "Send Email",
-        url: "#",
-        icon: Icons.email,
       },
     },
   },
