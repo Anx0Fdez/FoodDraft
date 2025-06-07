@@ -9,7 +9,7 @@
 ![Taildwind CSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Clerk](https://img.shields.io/badge/Clerk-indigo?style=for-the-badge&logo=clerk&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-4A3E2A?style=for-the-badge&logo=supabase&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Shadcn](https://img.shields.io/badge/shadcn-%23FF0000.svg?style=for-the-badge&logo=shadcn&logoColor=white)
 
 </div>
@@ -34,7 +34,7 @@ Para configurar el proyecto, sigue estos pasos:
     ```
 
 4. Crea un archivo `.env.local` en la raíz del proyecto con las siguientes claves:
-    ```env
+    ```typescript
     CLERK_PUBLIC_KEY=your_public_key
     CLERK_PRIVATE_KEY=your_private_key
 
@@ -43,19 +43,28 @@ Para configurar el proyecto, sigue estos pasos:
 
     NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=/feed
     NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=/feed
-    
-    DATABASE_URL=your_database_url
+
+    DATABASE_URL=database_url_here
+    SPOONACULAR_API_KEY= your_spoonacular_api_key
     ```
 
-Asegúrate de reemplazar `your_public_key` y `your_private_key` con tus claves de Clerk correspondientes y los id de Appwrite.
+5. Creacion de la base de datos en local:
+   Lanza el script de creacion de la base de datos: `create_database.sql`
+    ```bash
+    psql -U postgres -f create_database.sql
+    ```
 
-5. Inicia el servidor de desarrollo:
+
+    >[!IMPORTANT]
+    > Asegúrate de reemplazar `your_public_key` y `your_private_key` con tus claves de Clerk correspondientes y los id de Appwrite.
+
+
+6. Inicia el servidor de desarrollo:
     ```bash
     npm run dev
-
     cloudflared tunnel --url http://localhost:3000
     ```
-6. Durante la etapa de desarrollo, al usarcloudflared, actualiza el webhook de Clerk para que apunte a la URL dinamica de cloudflared. Puedes hacerlo desde la consola de Clerk, en la sección de Webhooks.
 
->[!CAUTION] 
-> Este proyecto se encuentra actualmente en desarrollo. Algunas funcionalidades pueden no estar completamente implementadas o pueden cambiar en el futuro.
+    >[!NOTE]
+    > Durante la etapa de desarrollo, si usas cloudflared, actualiza el webhook de Clerk para que apunte a la URL dinámica de cloudflared. Puedes hacerlo desde la consola de Clerk, en la sección de Webhooks.
+
