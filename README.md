@@ -55,8 +55,8 @@ Para configurar el proyecto, sigue estos pasos:
     ```
 
 
-    >[!IMPORTANT]
-    > Asegúrate de reemplazar `your_public_key` y `your_private_key` con tus claves de Clerk correspondientes y los id de Appwrite.
+>[!IMPORTANT]
+> Asegúrate de reemplazar `your_public_key` y `your_private_key` con tus claves de Clerk correspondientes y los id de Appwrite.
 
 
 6. Inicia el servidor de desarrollo:
@@ -65,6 +65,6 @@ Para configurar el proyecto, sigue estos pasos:
     cloudflared tunnel --url http://localhost:3000
     ```
 
-    >[!NOTE]
-    > Durante la etapa de desarrollo, si usas cloudflared, actualiza el webhook de Clerk para que apunte a la URL dinámica de cloudflared. Puedes hacerlo desde la consola de Clerk, en la sección de Webhooks.
+>[!NOTE]
+> Durante la etapa de desarrollo, si usas cloudflared, actualiza el webhook de Clerk para que apunte a la URL dinámica de cloudflared. Puedes hacerlo desde la consola de Clerk, en la sección de Webhooks.
 
