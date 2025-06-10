@@ -56,7 +56,7 @@ Para configurar el proyecto, sigue estos pasos:
 
 
 >[!IMPORTANT]
-> Asegúrate de reemplazar `your_public_key` y `your_private_key` con tus claves de Clerk correspondientes y los id de Appwrite.
+> Asegúrate de reemplazar `your_public_key` y `your_private_key` con tus claves de Clerk correspondientes.
 
 
 6. Inicia el servidor de desarrollo:
