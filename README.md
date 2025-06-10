@@ -14,6 +14,14 @@
 
 </div>
 
+<div align="center">
+
+
+[![Descargar Informe](https://img.shields.io/badge/Descargar%20Informe-pdf-red?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](informe.pdf)
+
+
+</div>
+
 ## Instalación en Local
 
 Para configurar el proyecto, sigue estos pasos:
@@ -49,6 +57,7 @@ Para configurar el proyecto, sigue estos pasos:
     ```
 
 5. Creacion de la base de datos en local:
+   
    Lanza el script de creacion de la base de datos: `create_database.sql`
     ```bash
     psql -U postgres -f create_database.sql
@@ -60,6 +69,7 @@ Para configurar el proyecto, sigue estos pasos:
 
 
 6. Inicia el servidor de desarrollo:
+   
     ```bash
     npm run dev
     cloudflared tunnel --url http://localhost:3000
