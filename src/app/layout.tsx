@@ -1,3 +1,4 @@
+// Layout raíz de la aplicación. Envuelve toda la app con el proveedor de Clerk y aplica la fuente global.
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -25,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${inter.className} antialiased`}>
-
+        {/* Renderiza el contenido de la app envuelto en ClerkProvider */}
         {children}
       </body>
     </html>

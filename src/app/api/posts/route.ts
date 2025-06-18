@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Pool } from 'pg';
 
+// Configuración de la conexión a la base de datos PostgreSQL
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
+// Obtiene todos los posts, con diferentes opciones de ordenamiento
 export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url!);
@@ -31,10 +33,11 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { title, description, dueDate, duration, ingredients, userId } = body;
-    // Validación básica
+    // Validación básica de los campos requeridos
     if (!title || !description || !duration || !ingredients || !userId) {
       return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
     }
+    // Inserta el nuevo post en la base de datos
     const { rows } = await pool.query(
       'INSERT INTO post (title, description, due_date, duration, ingredients, user_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
       [title, description, dueDate, duration, ingredients, userId]

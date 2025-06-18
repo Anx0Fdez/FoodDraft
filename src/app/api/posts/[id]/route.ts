@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Pool } from 'pg';
 
+// Configuración de la conexión a la base de datos PostgreSQL
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
+// Elimina un post por su ID
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     const id = params.id;
@@ -15,6 +17,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
   }
 }
 
+// Actualiza un post por su ID, manteniendo los likes/dislikes actuales
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     const id = params.id;
@@ -33,6 +36,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
+// Permite votar (like/dislike) un post por parte de un usuario
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     const id = params.id;
